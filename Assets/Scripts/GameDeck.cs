@@ -20,6 +20,10 @@ namespace DefaultNamespace
         [ContextMenu("Build Cards")]
         public void Build()
         {
+            
+            var outputDir = Application.dataPath + "/../Output";
+            if (!Directory.Exists(outputDir)) Directory.CreateDirectory(outputDir);
+            
             tsv = new TSVParser(1);
             tsv.DownloadAndParse(VisualSettings.Instance.tsvUrl, SetupCards);
         }
@@ -73,7 +77,7 @@ namespace DefaultNamespace
             {
                 card.SetData(cardsData[i]);
                 var fileName = Application.dataPath + "/../Output/" + card.data.rouletteNumber + ".png";
-                //ScreenCapture.CaptureScreenshot(fileName);
+                ScreenCapture.CaptureScreenshot(fileName);
                 Debug.Log($"Save {fileName}");
                 await Task.Delay(TimeSpan.FromSeconds(0.2f));
                 if (!Application.isPlaying) return;
